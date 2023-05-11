@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ae40a1c2089436145a0acd7504e7ab07
+guid: b5f06728879656249b954afb98e04080
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NPC1_0
+      name: NPC1 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57665c523fd294a45bebc3f8806934eb
-      internalID: 239191019
+      spriteID: 29fadb21a084dd947979fb089030ca66
+      internalID: -1049568894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_1
+      name: NPC1 1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 072589c185e793c419d15ecb49809918
-      internalID: 1989672849
+      spriteID: 7a003086cd43cbb48b3b3a54edb53f16
+      internalID: -869975879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_2
+      name: NPC1 1_2
       rect:
         serializedVersion: 2
         x: 64
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2123250d1d2263e4486049a1e46ac5f7
-      internalID: 1741214577
+      spriteID: 181ac9d5d4aa31a4a8cddf80ff45b55d
+      internalID: 1089556413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_3
+      name: NPC1 1_3
       rect:
         serializedVersion: 2
         x: 96
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3680bf86f169c6f478c1217ca998b926
-      internalID: -1630574039
+      spriteID: af8ddd224e863aa4a917a430e4a0766d
+      internalID: 514577082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_4
+      name: NPC1 1_4
       rect:
         serializedVersion: 2
         x: 128
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48f66f48d8618a5489949336c846a0d2
-      internalID: 1203325141
+      spriteID: 686fed76a8c9df94c880f517a2a7ac9d
+      internalID: 1553058994
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_5
+      name: NPC1 1_5
       rect:
         serializedVersion: 2
         x: 160
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 125db2d7ba32a0c468ccd6a49bcb91e2
-      internalID: -1395850991
+      spriteID: de72a3a9307a20948a62eaaf0c218a6d
+      internalID: -1117594014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_6
+      name: NPC1 1_6
       rect:
         serializedVersion: 2
         x: 192
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55ac3d4939b0ced45aa9d5c8f7119dee
-      internalID: 1035274252
+      spriteID: a6bd503136a6a3d43823b403179ff440
+      internalID: -1180921657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NPC1_7
+      name: NPC1 1_7
       rect:
         serializedVersion: 2
         x: 224
@@ -278,8 +278,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47981db532f3bf449b2b0ff6b7429c3e
-      internalID: -197715519
+      spriteID: 36758e56476d32142b28d672fe761451
+      internalID: 1011768142
       vertices: []
       indices: 
       edges: []
@@ -295,14 +295,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      NPC1_0: 239191019
-      NPC1_1: 1989672849
-      NPC1_2: 1741214577
-      NPC1_3: -1630574039
-      NPC1_4: 1203325141
-      NPC1_5: -1395850991
-      NPC1_6: 1035274252
-      NPC1_7: -197715519
+      NPC1 1_0: -1049568894
+      NPC1 1_1: -869975879
+      NPC1 1_2: 1089556413
+      NPC1 1_3: 514577082
+      NPC1 1_4: 1553058994
+      NPC1 1_5: -1117594014
+      NPC1 1_6: -1180921657
+      NPC1 1_7: 1011768142
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
