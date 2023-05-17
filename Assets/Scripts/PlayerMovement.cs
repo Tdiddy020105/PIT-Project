@@ -8,13 +8,25 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public Rigidbody2D rb;
 
+    private DialogueManagerr dialogueManager;
+    private bool isDialogueActive;
+
     Vector2 movement;
 
-    void Update()
+    private void Start()
     {
-        if(DialogueManager.isActive==true){
+        dialogueManager = DialogueManagerr.GetInstance();
+    }
+
+    private void Update()
+    {
+        isDialogueActive = dialogueManager.dialogueIsPlaying;
+
+        if (isDialogueActive)
+        {
             return;
         }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -22,11 +34,12 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
 
-        if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1) 
+        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
         {
             animator.SetFloat("LastMoveX", Input.GetAxisRaw("Horizontal"));
             animator.SetFloat("LastMoveY", Input.GetAxisRaw("Vertical"));
         }
+
         if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
         {
             movement.y = 0;
@@ -37,12 +50,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if (!isDialogueActive)
+        {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 }
-
-
-
-
