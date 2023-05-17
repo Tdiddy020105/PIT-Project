@@ -11,6 +11,7 @@ public class DialogueManagerr : MonoBehaviour
     [Header("Dialogue UI")]
 
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [Header("Choices UI")]
@@ -53,16 +54,25 @@ public class DialogueManagerr : MonoBehaviour
 
     private void Update()
     {
-        if(!dialogueIsPlaying)
+        if (!dialogueIsPlaying)
         {
             return;
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        // Check if a question is being displayed
+        if (currentStory.currentChoices.Count > 0)
+        {
+            // Disable the ability to continue with "R" key
+            return;
+        }
+
+        // Continue with the story when "R" key is pressed
+        if (Input.GetKeyDown(KeyCode.R))
         {
             ContinueStory();
         }
     }
+
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
@@ -82,9 +92,13 @@ public class DialogueManagerr : MonoBehaviour
 
     private void ContinueStory()
     {
-        if(currentStory.canContinue)
+        if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
+            string storyText = currentStory.Continue();
+            // Replace line breaks with paragraph tags or rich text formatting
+            storyText = storyText.Replace("\n", "<br>"); // Example: Replace "\n" with HTML "<br>" tag
+
+            dialogueText.text = storyText;
             DisplayChoices();
         }
         else
@@ -92,6 +106,8 @@ public class DialogueManagerr : MonoBehaviour
             ExitDialogueMode();
         }
     }
+
+
 
     private void DisplayChoices()
     {
@@ -114,6 +130,23 @@ public class DialogueManagerr : MonoBehaviour
         {
             choices[i].gameObject.SetActive(false);
         }
+
+        if (currentStory.currentTags.Count > 0)
+        {
+            foreach (string tag in currentStory.currentTags)
+            {
+                if (tag.StartsWith("speaker:"))
+                {
+                    string speakerName = tag.Substring(tag.IndexOf(":") + 1);
+                    speakerNameText.text = speakerName;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            speakerNameText.text = string.Empty;
+        }   
 
         StartCoroutine(SelectFirstChoice());
     }
