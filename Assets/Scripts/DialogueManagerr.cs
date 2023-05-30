@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+
 
 public class DialogueManagerr : MonoBehaviour
 {
@@ -11,6 +14,8 @@ public class DialogueManagerr : MonoBehaviour
     [Header("Dialogue UI")]
 
     [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private GameObject Background;
+    [SerializeField] private Image characterPortraitImage;
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
@@ -42,6 +47,7 @@ public class DialogueManagerr : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+        Background.SetActive(false);
 
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
@@ -54,7 +60,7 @@ public class DialogueManagerr : MonoBehaviour
 
     private void Update()
     {
-        if (!dialogueIsPlaying)
+        if(!dialogueIsPlaying)
         {
             return;
         }
@@ -67,7 +73,7 @@ public class DialogueManagerr : MonoBehaviour
         }
 
         // Continue with the story when "R" key is pressed
-        if (Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R))
         {
             ContinueStory();
         }
@@ -79,6 +85,7 @@ public class DialogueManagerr : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
+        Background.SetActive(true);
 
         ContinueStory();
     }
@@ -87,12 +94,13 @@ public class DialogueManagerr : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+        Background.SetActive(false);
         dialogueText.text = "";
     }
 
     private void ContinueStory()
     {
-        if (currentStory.canContinue)
+        if(currentStory.canContinue)
         {
             string storyText = currentStory.Continue();
             // Replace line breaks with paragraph tags or rich text formatting
@@ -131,14 +139,30 @@ public class DialogueManagerr : MonoBehaviour
             choices[i].gameObject.SetActive(false);
         }
 
-        if (currentStory.currentTags.Count > 0)
+        if(currentStory.currentTags.Count > 0)
         {
-            foreach (string tag in currentStory.currentTags)
+            foreach(string tag in currentStory.currentTags)
             {
-                if (tag.StartsWith("speaker:"))
+                if(tag.StartsWith("speaker:"))
                 {
                     string speakerName = tag.Substring(tag.IndexOf(":") + 1);
                     speakerNameText.text = speakerName;
+                    break;
+                }
+
+                if (tag.StartsWith("portrait:"))
+                {
+                    string characterPortrait = tag.Substring(tag.IndexOf(":") + 1);
+                    string spritePath = "NPC1Dialogue"; // Path without the file extension
+                    Sprite portraitSprite = Resources.Load<Sprite>("NPC1Dialogue");
+                    if (portraitSprite != null)
+                    {
+                        characterPortraitImage.sprite = portraitSprite;
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to load sprite: " + spritePath);
+                    }
                     break;
                 }
             }
@@ -160,7 +184,7 @@ public class DialogueManagerr : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        if (choiceIndex >= 0 && choiceIndex < currentStory.currentChoices.Count)
+        if(choiceIndex >= 0 && choiceIndex < currentStory.currentChoices.Count)
         {
             currentStory.ChooseChoiceIndex(choiceIndex);
             ContinueStory();
@@ -170,6 +194,24 @@ public class DialogueManagerr : MonoBehaviour
             Debug.LogError("Invalid choice index: " + choiceIndex);
         }
     }
+
+    private IEnumerator LoadSprite(string path)
+{
+    using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(path))
+    {
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Failed to load sprite: " + www.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(www);
+            characterPortraitImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        }
+    }
+}
 
 }
 
