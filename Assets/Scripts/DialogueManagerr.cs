@@ -19,6 +19,9 @@ public class DialogueManagerr : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speakerNameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
+    [SerializeField] private GameObject notificationPanel;
+    [SerializeField] private TextMeshProUGUI notificationText;
+
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
@@ -96,6 +99,26 @@ public class DialogueManagerr : MonoBehaviour
         dialoguePanel.SetActive(false);
         Background.SetActive(false);
         dialogueText.text = "";
+
+       if (!notificationPanel.activeSelf) // Check if the notification panel is already active
+        {
+            StartCoroutine(ShowNotificationCoroutine());
+        }
+    }
+
+    private IEnumerator ShowNotificationCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust the delay as needed
+
+        // Show the notification panel
+        notificationPanel.SetActive(true);
+        notificationText.text = "Goed gedaan!";
+
+        yield return new WaitForSeconds(2f); // Adjust the duration as needed
+
+        // Hide the notification panel
+        notificationPanel.SetActive(false);
+        ExitDialogueMode();
     }
 
     private void ContinueStory()
@@ -111,11 +134,10 @@ public class DialogueManagerr : MonoBehaviour
         }
         else
         {
-            ExitDialogueMode();
+            //ExitDialogueMode();
+            StartCoroutine(ShowNotificationCoroutine());
         }
     }
-
-
 
     private void DisplayChoices()
     {
